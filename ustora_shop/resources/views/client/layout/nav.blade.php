@@ -15,7 +15,8 @@
                     <li  class="{{ Request::routeIs('shop') ? 'active' : '' }}" ><a href="{{route('shop')}}">Shop page</a></li>
                     <li class="{{Request::routeIs('cart') ? 'active' : ''}}"><a href="{{route('cart')}}">Cart</a></li>
                     <li class="{{Request::routeIs('checkout') ? 'active' : ''}}"><a href="{{route('checkout')}}">Checkout</a></li>
-                    <li class="{{Request::routeIs('search') ? 'active' : ''}}"><a href="{{route('search')}}">Search</a></li>
+                    <li class="{{Request::routeIs('search') ? 'active' : ''}}"><a href="{{route('search')}}"><i class="fa fa-search"></i> Search</a></li>
+                    <li class="{{Request::routeIs('wishlist.index') ? 'active' : ''}}"><a href="{{route('wishlist.index')}}"><i class="fa fa-heart"></i> Wishlist  <span class="product-count">{{\Cart::instance('wishlist')->count()}}</span> </a></li>
 
 {{--                    <li><a href="#">Category</a></li>--}}
 {{--                    <li><a href="#">Others</a></li>--}}

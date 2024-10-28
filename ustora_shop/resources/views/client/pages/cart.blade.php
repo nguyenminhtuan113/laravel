@@ -75,7 +75,7 @@
 {{--                                            @endphp--}}
                                             <tr class="cart_item" >
                                                 <td class="product-remove">
-                                                    <form action="{{route('cart.item.remove',$item->rowId)}}" method="POST">
+                                                    <form action="{{route('cart.item.remove',$item->rowId)}}" method="post">
                                                         @csrf
                                                         @method('DELETE')
                                                         <a title="Remove this item" class="remove" href="javascript:void(0)">×</a>

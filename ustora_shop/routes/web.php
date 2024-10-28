@@ -26,7 +26,7 @@ Route::get('/cart', [CartController::class, 'index'])->name('cart');
 Route::post('/cart', [CartController::class, 'addCart'])->name('cart.add');
 Route::put('/cart/increase-quantity/{rowId}', [CartController::class, 'increase_cart_quantity'])->name('cart.increase-qty');
 Route::put('/cart/decrease-quantity/{rowId}', [CartController::class, 'decrease_cart_quantity'])->name('cart.decrease-qty');
-Route::delete('/cart/remove/{rowId}', [CartController::class, 'removeItemCart'])->name('cart.item.remove');
+Route::post('/cart/remove/{rowId}', [CartController::class, 'removeItemCart'])->name('cart.item.remove');
 Route::delete('/cart/removeAll', [CartController::class, 'removeAllCart'])->name('cart.removeAllCart');
 //wishlist
 Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist.index');

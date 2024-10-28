@@ -11,7 +11,7 @@
                         iPhone <span class="primary">6 <strong>Plus</strong></span>
                     </h2>
                     <h4 class="caption subtitle">Dual SIM</h4>
-                    <a class="caption button-radius" href="{{route('cart')}}"><span class="icon"></span>Shop now</a>
+                    <a class="caption button-radius" href="{{route('shop')}}"><span class="icon"></span>Shop now</a>
                 </div>
             </li>
             <li><img src="{{asset('fe/img/h4-slide2.png')}}" alt="Slide">
@@ -20,7 +20,7 @@
                         by one, get one <span class="primary">50% <strong>off</strong></span>
                     </h2>
                     <h4 class="caption subtitle">school supplies & backpacks.*</h4>
-                    <a class="caption button-radius" href="#"><span class="icon"></span>Shop now</a>
+                    <a class="caption button-radius" href="{{route('shop')}}"><span class="icon"></span>Shop now</a>
                 </div>
             </li>
             <li><img src="{{asset('fe/img/h4-slide3.png')}}" alt="Slide">
@@ -29,7 +29,7 @@
                         Apple <span class="primary">Store <strong>Ipod</strong></span>
                     </h2>
                     <h4 class="caption subtitle">Select Item</h4>
-                    <a class="caption button-radius" href="#"><span class="icon"></span>Shop now</a>
+                    <a class="caption button-radius" href="{{route('shop')}}"><span class="icon"></span>Shop now</a>
                 </div>
             </li>
             <li><img src="{{asset('fe/img/h4-slide4.png')}}" alt="Slide">
@@ -38,7 +38,7 @@
                         Apple <span class="primary">Store <strong>Ipod</strong></span>
                     </h2>
                     <h4 class="caption subtitle">& Phone</h4>
-                    <a class="caption button-radius" href="#"><span class="icon"></span>Shop now</a>
+                    <a class="caption button-radius" href="{{route('shop')}}"><span class="icon"></span>Shop now</a>
                 </div>
             </li>
         </ul>

@@ -59,6 +59,7 @@ class CartController extends Controller
 
     public function removeItemCart($rowId)
     {
+        dd($rowId);
         \Cart::instance('cart')->remove($rowId);
         toastr()->success('Xoá sản phẩm thành công!', ['timeOut' => 2000]);
         return redirect()->back();

@@ -30,4 +30,7 @@
         $(".remove").on("click",function (){
             $(this).closest('form').submit();
         });
+        $(".remove-cart").on("click",function (){
+            $(this).closest('form').submit();
+        });
     })</script>

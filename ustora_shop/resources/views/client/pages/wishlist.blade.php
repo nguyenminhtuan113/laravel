@@ -58,13 +58,12 @@
                                                     <span class="amount">£{{ $item->subtotal()}}</span>
                                                 </td>
                                                 <td>
-                                                    <form action="{{route('wishlist.itemRemove',$item->rowId)}}" method="post">
+                                                    <form action="{{route('wishlist.itemRemove',$item->rowId)}}" id="remove-item-{{$item->id}}" method="post">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit" class=" btn-close">x</button>
+                                                        <a href="javascript:void(0);" class="remove-cart" onclick="document.getElementById('remove-item-{{$item->id}}')">x</a>
                                                     </form>
                                                 </td>
-                                                <td class="c"></td>
                                             </tr>
                                             <tr>
                                                 <td class="action" colspan="6" >
@@ -84,7 +83,6 @@
 
 
                                     @endif
-
 
                                     </tbody>
                                 </table>
