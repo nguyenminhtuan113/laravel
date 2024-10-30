@@ -14,6 +14,7 @@
                             <li>
                                 <a href="{{route('login')}}" class="dropbtn"><i class="fa fa-user"></i> Login</a>
                             </li>
+
                         @endif
                         <li><a href="{{route('wishlist.index')}}"><i class="fa fa-heart"></i> Wishlist</a></li>
 

@@ -17,7 +17,6 @@
                 <div class="col-md-12">
                     <div class="product-content-right">
                         <div class="woocommerce">
-                            <form method="post" action="#">
                                 <table cellspacing="0" class="shop_table cart table">
                                     <thead>
                                     <tr>
@@ -25,7 +24,7 @@
                                         <th class="product-price">Price</th>
                                         <th class="product-quantity ">Quantity</th>
                                         <th class="product-subtotal">Total</th>
-                                        <th><i class="fa fa-trash"></i></th>
+                                        <th>Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -42,10 +41,6 @@
                                                     <p>{{$item->name}}</p>
                                                 </td>
 
-{{--                                                <td class="product-name">--}}
-{{--                                                    <a href="">{{$item->name}}</a>--}}
-{{--                                                </td>--}}
-
                                                 <td class="product-price">
                                                     <span class="amount">£{{number_format(salePrice($item->price,$item->discount),2)}}</span>
                                                 </td>
@@ -57,23 +52,25 @@
                                                 <td class="product-subtotal">
                                                     <span class="amount">£{{ $item->subtotal()}}</span>
                                                 </td>
-                                                <td>
-                                                    <form action="{{route('wishlist.itemRemove',$item->rowId)}}" id="remove-item-{{$item->id}}" method="post">
+                                                <td style="display: flex; gap: 5px; justify-content: center">
+                                                    <form id="form-removeWishlist"
+                                                          action="{{ route('wishlist.itemRemove', ['rowId' => \Cart::instance('wishlist')->content()->where('id', $item->id)->first()->rowId]) }}"
+                                                          method="post">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <a href="javascript:void(0);" class="remove-cart" onclick="document.getElementById('remove-item-{{$item->id}}')">x</a>
+{{--                                                        <a href="javascript:void(0);" onclick="document.getElementById('form-removeWishlist').submit();"><i class="fa fa-trash"></i></a>--}}
+                                                        <button type="submit"><i class="fa fa-trash"></i></button>
                                                     </form>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="action" colspan="6" >
-                                                    <form action="{{route('wishlist.removeAll')}}" method="POST">
+                                                    <br/>
+                                                    <form action="{{route('wishlist.moveToCart',$item->rowId)}}" method="post">
                                                         @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-primary">Clear Wishlist</button>
+                                                        <input type="hidden" name="{{$item->img}}">
+                                                        <button type="submit">Move to cart</button>
                                                     </form>
+
                                                 </td>
                                             </tr>
+
                                         @endforeach
                                     @else
 
@@ -83,10 +80,19 @@
 
 
                                     @endif
-
+                                    @if(\Cart::instance("wishlist")->content()->count() > 0)
+                                        <tr>
+                                            <td class="action" colspan="6" >
+                                                <form action="{{route('wishlist.removeAll')}}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-primary">Clear Wishlist</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @endif
                                     </tbody>
                                 </table>
-                            </form>
 
 
                         </div>

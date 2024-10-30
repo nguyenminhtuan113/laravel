@@ -36,5 +36,21 @@ class WishlistController extends Controller
         toastr()->success('Xoá sản phẩm yêu thích thành công!', ['timeOut' => 2000]);
         return redirect()->back();
     }
+    public function moveToCart($rowId){
+        $item = \Cart::instance('wishlist')->get($rowId);
+//        dd($item);
+        \Cart::instance('wishlist')->remove($rowId);
+        \Cart::instance('cart')->add([
+            'id' => $item->id,
+            'name' => $item->name,
+            'qty' => $item->qty,
+            'price' => $item->price,
+            'weight' => 0,
+            'options' => [
+                'img' => $item->img,
+            ]
+        ])->associate('App\Models\Product');
+        return redirect()->back();
+    }
 
 }

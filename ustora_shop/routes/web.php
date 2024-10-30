@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\User\ShopController;
 use App\Http\Controllers\User\UserController;
@@ -26,16 +27,21 @@ Route::get('/cart', [CartController::class, 'index'])->name('cart');
 Route::post('/cart', [CartController::class, 'addCart'])->name('cart.add');
 Route::put('/cart/increase-quantity/{rowId}', [CartController::class, 'increase_cart_quantity'])->name('cart.increase-qty');
 Route::put('/cart/decrease-quantity/{rowId}', [CartController::class, 'decrease_cart_quantity'])->name('cart.decrease-qty');
-Route::post('/cart/remove/{rowId}', [CartController::class, 'removeItemCart'])->name('cart.item.remove');
+Route::delete('/cart/remove/{rowId}', [CartController::class, 'removeItemCart'])->name('cart.item.remove');
 Route::delete('/cart/removeAll', [CartController::class, 'removeAllCart'])->name('cart.removeAllCart');
 //wishlist
 Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist.index');
 Route::post('/wishlist', [WishlistController::class, 'addWishlist'])->name('wishlist.add');
 Route::delete('/wishlist/removeWishlist/{rowId}', [WishlistController::class, 'removeItemWishlist'])->name('wishlist.itemRemove');
 Route::delete('wishlist/removeAll', [WishlistController::class, 'removeAll'])->name('wishlist.removeAll');
+Route::post('wishlist/moveToCart/{rowId}', [WishlistController::class, 'moveToCart'])->name('wishlist.moveToCart');
 
 Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout');
-
+Route::post('/place_an_order', [CartController::class, 'place_an_order'])->name('cart.place.an.order');
+Route::get('/order-confirmation', [CartController::class, 'order_confirmation'])->name('cart.order.confirmation');
+Route::get('/view-order', [OrderController::class, 'view_order'])->name('view.order');
+Route::get('/view-order/{id}/detail', [OrderController::class, 'show_order'])->name('show.order');
+Route::put('/cancel-order',[OrderController::class, 'order_cancel'])->name('cancel.order');
 
 
 
@@ -62,4 +68,10 @@ Route::middleware(['admin'])->prefix('admin')->group(function () {
     Route::get('/product-trash', [ProductController::class, 'trash'])->name('product.trash');
     Route::get('/product-restore/{id}', [ProductController::class, 'restore'])->name('product.restore');
     Route::get('/product-forceDelete/{id}', [ProductController::class, 'forceDelete'])->name(name: 'product.forceDelete');
+
+    //order
+    Route::resource('/order',OrderController::class);
+    Route::put('/order/update-status', [OrderController::class, 'update'])->name('order.update.status');
+
+
 });

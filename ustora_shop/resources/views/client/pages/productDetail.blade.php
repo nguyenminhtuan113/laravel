@@ -88,7 +88,7 @@
                                     <div class="product-inner-price">
                                         <ins>${{number_format(salePrice($product->price,$product->discount),2)}}</ins> <del>${{number_format($product->price),2}}</del>
                                     </div>
-                                    <div class="d-flex" style="display: flex;justify-content: space-around;">
+                                    <div class="d-flex" style="display: flex;justify-content: space-around; flex-wrap: wrap">
                                         <form action="{{route('cart.add')}}" method="post" class="cart">
                                             @csrf
                                             <input type="hidden" name="id" value="{{$product->id}}"/>
@@ -100,17 +100,36 @@
                                             </div>
                                             <button class="add_to_cart_button" type="submit">Add to cart</button>
                                         </form>
-                                        <form action="{{route('wishlist.add')}}" method="post" class="cart">
-                                            @csrf
-                                            <input type="hidden" name="id" value="{{$product->id}}"/>
-                                            <input type="hidden" name="name" value="{{$product->name}}"/>
-                                            <input type="hidden" name="img" value="{{$product->img}}"/>
-                                            <input type="hidden" name="price" value="{{salePrice($product->price,$product->discount)}}"/>
-                                            <div class="quantity">
-                                                <input type="hidden"  size="4" class="input-text qty text" title="Qty" value="1" name="qty" min="1" step="1"/>
-                                            </div>
-                                            <button class="add_to_cart_button" type="submit"><i class="fa fa-heart"></i> Wishlist</button>
-                                        </form>
+                                        @if (\Cart::instance('wishlist')->content()->where('id', $product->id)->count() > 0)
+                                            <form id="form-removeWishlist"
+                                                  action="{{ route('wishlist.itemRemove', ['rowId' => \Cart::instance('wishlist')->content()->where('id', $product->id)->first()->rowId]) }}"
+                                                  method="post">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button  type="submit">
+                                                    <i class="fa fa-heart"></i>
+                                                    Remove Wishlist
+                                                </button>
+                                            </form>
+                                        @else
+                                            <form action="{{ route('wishlist.add') }}" method="post"
+                                                  class="cart wishlist-form">
+                                                @csrf
+                                                <input type="hidden" name="id" value="{{ $product->id }}" />
+                                                <input type="hidden" name="name" value="{{ $product->name }}" />
+                                                <input type="hidden" name="img" value="{{ $product->img }}" />
+                                                <input type="hidden" name="price"
+                                                       value="{{ salePrice($product->price, $product->discount) }}" />
+                                                <div class="quantity">
+                                                    <input type="hidden" size="4" class="input-text qty text"
+                                                           title="Qty" value="1" name="qty" min="1"
+                                                           step="1" />
+                                                </div>
+                                                <button type="submit"><i class="addWishlist fa fa-heart text-white"
+                                                                         style="cursor: pointer; "></i>Wishlist</button>
+
+                                            </form>
+                                        @endif
                                     </div>
 
 

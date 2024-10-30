@@ -46,7 +46,7 @@
             <i class="fas fa-people-roof"></i>
               <p>Administrator</p>
             </a>
-            
+
           </li> --}}
 
           <li class="nav-item {{Request::is('admin/category*') ? 'active' : ''}}">
@@ -96,6 +96,33 @@
                 </li>
                 <li class="{{ Request::routeIs('product.create') ? 'active' : '' }}">
                   <a href="{{route('product.create')}}">
+                    <span class="sub-item">Thêm sản phẩm</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </li>
+
+          <li class="nav-item {{Request::is('admin/order*') ? 'active' : ''}}">
+            <a
+              data-bs-toggle="collapse"
+              href="#order"
+              class="collapsed"
+              aria-expanded="{{ Request::is('admin/order*') ? 'true' : 'false' }}"
+            >
+            <i class="fas fa-th-list"></i>
+              <p>Quản lí Order</p>
+              <span class="caret"></span>
+            </a>
+            <div class="collapse {{ Request::is('admin/order*') ? 'show' : '' }}" id="order">
+              <ul class="nav nav-collapse">
+                <li class="{{ Request::routeIs('order.index') ? 'active' : '' }}">
+                  <a href="{{route('order.index')}}">
+                    <span class="sub-item">Danh sách Order</span>
+                  </a>
+                </li>
+                <li class="{{ Request::routeIs('order.create') ? 'active' : '' }}">
+                  <a href="{{route('order.create')}}">
                     <span class="sub-item">Thêm sản phẩm</span>
                   </a>
                 </li>

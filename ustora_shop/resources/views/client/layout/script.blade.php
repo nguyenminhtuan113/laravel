@@ -33,4 +33,12 @@
         $(".remove-cart").on("click",function (){
             $(this).closest('form').submit();
         });
-    })</script>
+
+    });
+
+    document.querySelector('.addWishlist').addEventListener("click", function() {
+        document.querySelector('.wishlist-form').submit();
+    });
+
+
+</script>

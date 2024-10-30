@@ -338,8 +338,10 @@
               <span class="op-7">Hi,</span>
               @if (Auth::check() && Auth::user())
               <span class="fw-bold">{{ucwords(Auth::user()->name)}}</span>
+
+
               @endif
-              
+
             </span>
           </a>
           <ul class="dropdown-menu dropdown-user animated fadeIn">
