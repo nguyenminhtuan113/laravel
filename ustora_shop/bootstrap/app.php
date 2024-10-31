@@ -16,9 +16,6 @@ return Application::configure(basePath: dirname(__DIR__))
             AdminAuthenticate::class
         ]);
 
-//        $middleware->prependToGroup('admin', [
-//            AdminAuthenticate::class
-//        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
