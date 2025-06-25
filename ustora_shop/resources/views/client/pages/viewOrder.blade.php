@@ -37,31 +37,37 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($orders as $order)
-                            <tr>
-                                <td>{{$order->id}}</td>
-                                <td>{{$order->name}}</td>
-                                <td>{{$order->phone}}</td>
-                                <td>{{$order->subtotal}}</td>
-                                <td>{{$order->total}}</td>
-                                <td>
-                                    @if($order->status == 'delivered')
-                                        <span class="badge bg-success" style="background: green">Delivered</span>
-                                    @elseif($order->status == 'canceled')
-                                        <span class="badge bg-danger" style="background: red">Canceled</span>
-                                    @else
-                                        <span class="badge bg-warning" style="background: yellow;color: black">Ordered</span>
-                                    @endif
-                                </td>
-                                <td>{{$order->created_at}}</td>
-                                <td>{{$order->orderItems->count()}}</td>
-                                <td>{{$order->delivered_date}}</td>
-                                <td>
-                                    <a href="{{route('show.order',$order->id)}}" class="btn btn-primary"><i class="fa fa-eye"></i> Show</a>
-                                </td>
-                            </tr>
-                        @endforeach
-
+                            @if ($orders->count() > 0)
+                                 @foreach($orders as $order)
+                                    <tr>
+                                        <td>{{$order->id}}</td>
+                                        <td>{{$order->name}}</td>
+                                        <td>{{$order->phone}}</td>
+                                        <td>{{$order->subtotal}}</td>
+                                        <td>{{$order->total}}</td>
+                                        <td>
+                                            @if($order->status == 'delivered')
+                                                <span class="badge bg-success" style="background: green">Delivered</span>
+                                            @elseif($order->status == 'canceled')
+                                                <span class="badge bg-danger" style="background: red">Canceled</span>
+                                            @else
+                                                <span class="badge bg-warning" style="background: yellow;color: black">Ordered</span>
+                                            @endif
+                                        </td>
+                                        <td>{{$order->created_at}}</td>
+                                        <td>{{$order->orderItems->count()}}</td>
+                                        <td>{{$order->delivered_date}}</td>
+                                        <td>
+                                            <a href="{{route('show.order',$order->id)}}" class="btn btn-primary"><i class="fa fa-eye"></i> Show</a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @else
+                                    <tr class="cart_item no-items text-center">
+                                            <td colspan="12" class="text-danger">No orders!</td>
+                                    </tr>
+                            @endif
+                       
 
                         </tbody>
                     </table>

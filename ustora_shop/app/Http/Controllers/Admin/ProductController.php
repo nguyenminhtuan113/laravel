@@ -120,7 +120,8 @@ class ProductController extends Controller
         toastr()->success('Khôi phục thành công!', ['timeOut' => 1000]);
         return redirect()->route('product.trash');
     }
-    public function forceDelete($id){
+    public function forceDelete($id)
+    {
         Product::withTrashed()->where('id', $id)->forceDelete();
         toastr()->success('Xoá thành công!', ['timeOut' => 1000]);
         return redirect()->route('product.trash');

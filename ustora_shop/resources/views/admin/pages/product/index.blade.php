@@ -37,7 +37,6 @@
                         <th>Tên sản phẩm</th>
                         <th>Danh mục</th>
                         <th>Giảm giá %</th>
-                        {{-- <th>Mô tả sản phẩm</th> --}}
                         <th>Giá sản phẩm</th>
                         <th>Tag</th>
                         <th>Slug</th>
@@ -53,7 +52,6 @@
                         <th>Tên danh mục</th>
                         <th>Danh mục</th>
                         <th>Giảm giá %</th>
-                        {{-- <th>Mô tả sản phẩm</th> --}}
                         <th>Giá sản phẩm</th>
                         <th>Tag</th>
                         <th>Slug</th>
@@ -71,8 +69,7 @@
                         <td>{{$product->name}}</td>
                         <td>{{ $product->category ? $product->category->name : 'Không có danh mục' }}</td>
                         <td>{{$product->discount}}%</td>
-                        <td>{{$product->price}}</td>
-                        {{-- <td>{{Str::limit($product->description, 100)}}</td> --}}
+                        <td>{{number_format($product->price)}} đ</td>
                         <td>{{$product->tag}}</td>
                         <td>{{$product->slug}}</td>
                         <td>{{$product->created_at}}</td>

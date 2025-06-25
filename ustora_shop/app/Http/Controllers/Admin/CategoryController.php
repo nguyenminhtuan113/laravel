@@ -37,8 +37,9 @@ class CategoryController extends Controller
     public function store(CategoriesRequest $request)
     {
         try {
-            toastr()->success('Thêm mới thành công!', ['timeOut' => 2000]);
+
             Categories::create($request->all());
+            toastr()->success('Thêm mới thành công!', ['timeOut' => 2000]);
             return redirect()->route('category.index');
         } catch (\Throwable $th) {
             return back();

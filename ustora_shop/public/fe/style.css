@@ -120,6 +120,7 @@ z-index: 999;}
     text-align: center;
     top: -10px;
     width: 20px;
+    line-height: 2;
 }
 .shopping-item i.fa {
     margin-left: 15px;
@@ -1120,4 +1121,9 @@ div.cart-collaterals ul.products li.product:hover .add_to_cart_button{background
 
 .pagination > li > a, .pagination > li > span {
   color: #5a88ca;
+}
+.plus, .minus{
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
 }

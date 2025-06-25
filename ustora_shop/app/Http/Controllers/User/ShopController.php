@@ -10,9 +10,10 @@ use Illuminate\Support\Facades\DB;
 
 class ShopController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $products = Product::paginate(5);
-        return view('client.pages.shoppage',compact('products'));
+        return view('client.pages.shoppage', compact('products'));
     }
     public function productDetail($id)
     {
@@ -26,14 +27,18 @@ class ShopController extends Controller
         //products
         $products = DB::table("products")->take(4)->get();
         // Hiển thị thông tin sản phẩm trên trang singleProduct
-        return view('client.pages.productDetail', compact('product', 'images','relatedProducts','products'));
+        return view('client.pages.productDetail', compact('product', 'images', 'relatedProducts', 'products'));
     }
-    public function search(Request $request){
+    public function search(Request $request)
+    {
 
         $query = $request->input('query');
-        $products = Product::where('name', 'like', '%'.$query.'%')
-                            ->orWhere('description', 'like', '%'.$query.'%')->take(4)->get();
-//        dd($products);
+        $products = Product::where('name', 'like', '%' . $query . '%')
+            ->orWhere('description', 'like', '%' . $query . '%')
+            ->orWhere('slug', 'like', '%' . $query . '%')
+
+            ->take(4)->get();
+        //        dd($products);
         return view('client.pages.search.search', compact('products'));
     }
 }

@@ -18,27 +18,21 @@
 {{-- <script type="text/javascript" src="{{asset('fe/js/bxslider.min.js')}}"></script> --}}
 {{-- <script type="text/javascript" src="{{asset('fe/js/script.slider.js')}}"></script> --}}
 <script>
-    $(function (){
-        $(".minus").on("click",function (){
+    $(function() {
+        $(".minus").on("click", function() {
             $(this).closest('form').submit();
         });
 
-        $(".plus").on("click",function (){
+        $(".plus").on("click", function() {
             $(this).closest('form').submit();
         });
 
-        $(".remove").on("click",function (){
+        $(".remove").on("click", function() {
             $(this).closest('form').submit();
         });
-        $(".remove-cart").on("click",function (){
+        $(".remove-cart").on("click", function() {
             $(this).closest('form').submit();
         });
 
     });
-
-    document.querySelector('.addWishlist').addEventListener("click", function() {
-        document.querySelector('.wishlist-form').submit();
-    });
-
-
 </script>

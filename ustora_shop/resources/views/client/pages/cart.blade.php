@@ -28,11 +28,18 @@
                         <h2 class="sidebar-title">Products</h2>
                         @foreach($products as $product)
                             <div class="thubmnail-recent">
-                                <img src="{{$product->img}}" class="recent-thumb" alt="">
+                                <img src="{{'storage/images/'.$product->img}}" class="recent-thumb" alt="{{$product->name}}">
                                 <h2><a href="{{route('productDetail',$product->id)}}">{{$product->name}}</a></h2>
-                                <div class="product-sidebar-price">
-                                    <ins>${{number_format(salePrice($product->price,$product->discount),2)}}</ins> <del>${{number_format($product->price,2)}}</del>
-                                </div>
+                                @if ($product->discount)
+                                    <div class="product-carousel-price">
+                                        <ins>{{ number_format(salePrice($product->price, $product->discount)) }}đ</ins>
+                                        <del>{{ number_format($product->price) }}đ</del>
+                                    </div>
+                                @else
+                                        <div class="product-carousel-price">
+                                        <ins>{{ number_format(salePrice($product->price, $product->discount)) }}đ</ins>
+                                        </div>
+                                @endif
                             </div>
                         @endforeach
 
@@ -70,7 +77,7 @@
 
                                     @if($carts->count() > 0)
                                         @foreach($carts as $item)
-                                            <tr class="cart_item" >
+                                        
                                                 <td class="product-remove">
                                                     <form action="{{route('cart.item.remove',['rowId'=>\Cart::instance('cart')->content()->where('id',$item->id)->first()->rowId])}}" method="post" class="form-submit">
                                                         @csrf
@@ -81,7 +88,8 @@
 
                                                 <td class="product-thumbnail">
 
-                                                    <a href="{{route('productDetail',$item->id)}}"><img width="145" height="145" alt="poster_1_up" class="shop_thumbnail" src="{{$item->options['img']}}"></a>
+                                                    <a href="{{route('productDetail',$item->id)}}">
+                                                        <img width="145" height="145" alt="poster_1_up" class="shop_thumbnail" src="{{asset('storage/images/'.$item->options['img'])}}"></a>
                                                 </td>
 
                                                 <td class="product-name">
@@ -89,7 +97,7 @@
                                                 </td>
 
                                                 <td class="product-price">
-                                                    <span class="amount">£{{number_format(salePrice($item->price,$item->discount),2)}}</span>
+                                                    <span class="amount">{{number_format(salePrice($item->price,$item->discount))}}đ</span>
                                                 </td>
 
                                                 <td class="product-quantity">
@@ -113,7 +121,7 @@
                                                 </td>
 
                                                 <td class="product-subtotal">
-                                                    <span class="amount">£{{ $item->subtotal()}}</span>
+                                                    <span class="amount">{{ number_format($item->price * $item->qty)}}đ</span>
                                                 </td>
                                             </tr>
 
@@ -131,10 +139,10 @@
                                     <tr>
                                         <td class="action" colspan="6" >
                                             <h3>
-                                                <b>Total payment:$ {{\Cart::instance('cart')->subtotal()}}</b>
+                                                <b>Total payment: {{\Cart::instance('cart')->subtotal()}} đ</b>
                                             </h3>
-                                            <div class="d-flex" style="display: flex; justify-content: end; gap: 1px;">
-                                                <a href="{{route('checkout')}}"   class="btn btn-primary" style="align-items: center ;">Checkout</a>
+                                            <div style="display: flex; justify-content: end; gap: 1px;">
+                                                <a href="{{route('checkout')}}"   class="btn btn-primary" style="display:flex; justify-content:center ; align-items: center ;">Checkout</a>
                                                 <form action="{{route('cart.removeAllCart')}}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
@@ -157,9 +165,9 @@
                                         @foreach($interestProduct as $interPro)
                                             <li class="product">
                                                 <a href="{{route('productDetail',$interPro->id)}}">
-                                                    <img width="325" height="325" alt="T_4_front" class="attachment-shop_catalog wp-post-image" src="{{$interPro->img}}">
+                                                    <img width="325" height="325" alt="T_4_front" class="attachment-shop_catalog wp-post-image" src="{{'storage/images/'.$interPro->img}}">
                                                     <h3>{{$interPro->name}}</h3>
-                                                    <span class="price"><span class="amount">£ {{number_format(salePrice($interPro->price,$interPro->discount),2)}}</span></span>
+                                                    <span class="price"><span class="amount"> {{number_format(salePrice($interPro->price,$interPro->discount))}}</span></span>
                                                 </a>
 
                                                 <a class="add_to_cart_button" data-quantity="1" data-product_sku="" data-product_id="22" rel="nofollow" href="{{route('productDetail',$interPro->id)}}">Detail</a>
@@ -179,7 +187,7 @@
                                         <tbody>
                                         <tr class="cart-subtotal">
                                             <th>Cart Subtotal</th>
-                                            <td><span class="amount">£{{\Cart::instance('cart')->subtotal()}}</span></td>
+                                            <td><span class="amount">{{\Cart::instance('cart')->subtotal()}} đ</span></td>
                                         </tr>
 
                                         <tr class="shipping">
@@ -189,18 +197,11 @@
 
                                         <tr class="order-total">
                                             <th>Order Total</th>
-                                            <td><strong><span class="amount">£{{\Cart::instance('cart')->subtotal()}}</span></strong> </td>
+                                            <td><strong><span class="amount">{{\Cart::instance('cart')->total()}} đ</span></strong> </td>
                                         </tr>
                                         </tbody>
                                     </table>
-
-
                                 </div>
-
-
-
-
-
                             </div>
                         </div>
                     </div>

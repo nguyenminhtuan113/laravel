@@ -70,8 +70,8 @@
                 </div>
                 <div class="col col-stats ms-3 ms-sm-0">
                   <div class="numbers">
-                    <p class="card-category">Sales</p>
-                    <h4 class="card-title">$ 1,345</h4>
+                    <p class="card-category">Totals</p>
+                      <h4 class="card-title">$ {{$totalAmount}}</h4>
                   </div>
                 </div>
               </div>
@@ -92,7 +92,7 @@
                 <div class="col col-stats ms-3 ms-sm-0">
                   <div class="numbers">
                     <p class="card-category">Order</p>
-                    <h4 class="card-title">576</h4>
+                    <h4 class="card-title">{{$orders->count()}}</h4>
                   </div>
                 </div>
               </div>

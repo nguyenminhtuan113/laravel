@@ -39,15 +39,6 @@
                       <div class="text-danger">{{ $message }}</div>
                       @enderror
                   </div>
-                  <div class="d-flex align-items-center justify-content-between mb-4">
-                    <div class="form-check">
-                      <input class="form-check-input primary" type="checkbox" value="" id="flexCheckChecked" checked>
-                      <label class="form-check-label text-dark" for="flexCheckChecked">
-                        Ghi nhớ thiết bị này
-                      </label>
-                    </div>
-                    <a class="text-primary fw-bold" href="">Quên mật khẩu ?</a>
-                  </div>
                   <button type="submit" class="btn btn-primary w-100 fs-4 mb-4 rounded-2">Đăng nhập</button>
                 </form>
               </div>

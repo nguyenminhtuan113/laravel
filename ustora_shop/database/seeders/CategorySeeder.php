@@ -16,7 +16,6 @@ class CategorySeeder extends Seeder
             'Huawei',
             'Oppo',
             'Vivo',
-            'OnePlus',
             'Sony',
             'Nokia',
             'Google'

@@ -7,11 +7,14 @@ use Illuminate\Http\Request;
 
 class WishlistController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $items = \Cart::instance('wishlist')->content();
-        return view('client.pages.wishlist',compact('items'));
+        return view('client.pages.wishlist', compact('items'));
     }
-    public function addWishlist(Request $request){
+    public function addWishlist(Request $request)
+    {
+
         \Cart::instance('wishlist')->add([
             'id' => $request->id,
             'name' => $request->name,
@@ -23,22 +26,26 @@ class WishlistController extends Controller
             ]
 
         ])->associate('App\Models\Product');
+
         toastr()->success('Thêm sản phẩm yêu thích thành công!', ['timeOut' => 2000]);
         return redirect()->back();
     }
-    public function removeItemWishlist($rowId){
+    public function removeItemWishlist($rowId)
+    {
         \Cart::instance('wishlist')->remove($rowId);
         toastr()->success('Xoá sản phẩm yêu thích thành công!', ['timeOut' => 2000]);
         return redirect()->back();
     }
-    public function removeAll(){
+    public function removeAll()
+    {
         \Cart::instance('wishlist')->destroy();
         toastr()->success('Xoá sản phẩm yêu thích thành công!', ['timeOut' => 2000]);
         return redirect()->back();
     }
-    public function moveToCart($rowId){
+    public function moveToCart($rowId)
+    {
         $item = \Cart::instance('wishlist')->get($rowId);
-//        dd($item);
+        //        dd($item);
         \Cart::instance('wishlist')->remove($rowId);
         \Cart::instance('cart')->add([
             'id' => $item->id,
@@ -52,5 +59,4 @@ class WishlistController extends Controller
         ])->associate('App\Models\Product');
         return redirect()->back();
     }
-
 }

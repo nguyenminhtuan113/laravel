@@ -37,12 +37,16 @@
 
                                                 <td class="product-thumbnail">
 
-                                                    <a href="{{route('productDetail',$item->id)}}"><img width="145" height="145" alt="poster_1_up" class="shop_thumbnail" src="{{$item->options['img']}}"></a>
+                                                    <a href="{{route('productDetail',$item->id)}}">
+                                                        <img width="145" height="145" alt="poster_1_up" class="shop_thumbnail" src="{{asset('storage/images/'.$item->options['img'])}}" alt="{{$item->img}}">
+                                                        
+
+                                                    </a>
                                                     <p>{{$item->name}}</p>
                                                 </td>
 
                                                 <td class="product-price">
-                                                    <span class="amount">£{{number_format(salePrice($item->price,$item->discount),2)}}</span>
+                                                    <span class="amount">{{number_format(salePrice($item->price,$item->discount))}} đ</span>
                                                 </td>
 
                                                 <td class="product-quantity">
@@ -50,7 +54,7 @@
                                                 </td>
 
                                                 <td class="product-subtotal">
-                                                    <span class="amount">£{{ $item->subtotal()}}</span>
+                                                    <span class="amount">{{ number_format($item->price * $item->qty)}}đ</span>
                                                 </td>
                                                 <td style="display: flex; gap: 5px; justify-content: center">
                                                     <form id="form-removeWishlist"
@@ -59,13 +63,13 @@
                                                         @csrf
                                                         @method('DELETE')
 {{--                                                        <a href="javascript:void(0);" onclick="document.getElementById('form-removeWishlist').submit();"><i class="fa fa-trash"></i></a>--}}
-                                                        <button type="submit"><i class="fa fa-trash"></i></button>
+                                                        <button type="submit" class="btn"><i class="fa fa-trash"></i></button>
                                                     </form>
                                                     <br/>
                                                     <form action="{{route('wishlist.moveToCart',$item->rowId)}}" method="post">
                                                         @csrf
                                                         <input type="hidden" name="{{$item->img}}">
-                                                        <button type="submit">Move to cart</button>
+                                                        <button type="submit" class="btn" style="font-size: 12px">Move to cart</button>
                                                     </form>
 
                                                 </td>

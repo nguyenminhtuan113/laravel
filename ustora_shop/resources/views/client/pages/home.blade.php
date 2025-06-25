@@ -2,6 +2,7 @@
 @section('content')
     <div class="slider-area">
         <!-- Slider -->
+{{--        <h1>{{ __('messages.welcome') }}</h1>--}}
         <div class="block-slider block-slider4">
             <ul class="" id="bxslider-home4">
                 <li>
@@ -86,21 +87,20 @@
                     <div class="latest-product">
                         <h2 class="section-title">Latest Products</h2>
                         <div class="product-carousel">
-
-                            @foreach ($products as $product)
+                            @if ($products)
+                                 @foreach ($products as $product)
                                 <div class="single-product">
                                     <div class="product-f-image">
-                                        <img src="{{ $product->img }}" alt="">
+                                        <img src="{{asset('storage/images/'.$product->img)}}" alt="{{$product->img}}">
                                         <div class="product-hover">
                                             <form action="{{ route('cart.add') }}" method="post"
                                                 enctype="multipart/form-data">
-
                                                 @csrf
                                                 <div class="form-group">
                                                     <input type="hidden" name="id" value="{{ $product->id }}" />
                                                     <input type="hidden" name="name" value="{{ $product->name }}" />
                                                     <input type="hidden" name="price"
-                                                        value="{{ number_format(salePrice($product->price, $product->discount), 2) }}" />
+                                                        value="{{ salePrice($product->price, $product->discount) }}" />
                                                     <input type="hidden" name="img" value="{{ $product->img }}" />
                                                     <input type="hidden" name="qty" min="1" value="1" />
                                                 </div>
@@ -116,20 +116,19 @@
 
                                     <h2 style="display: flex; justify-content: space-between;">
                                         <a href="{{ route('productDetail', $product->id) }}">{{ $product->name }}</a>
-{{--                                        @php--}}
-{{--                                        dd(\Cart::instance('wishlist')->content()->where('id', $product->id)->count())--}}
-{{--                                            @endphp--}}
+                                        
                                         @if (\Cart::instance('wishlist')->content()->where('id', $product->id)->count() > 0)
                                             <form id="form-removeWishlist"
                                                 action="{{ route('wishlist.itemRemove', ['rowId' => \Cart::instance('wishlist')->content()->where('id', $product->id)->first()->rowId]) }}"
                                                 method="post">
                                                 @csrf
                                                 @method('DELETE')
-                                                <i class="fa fa-heart" style="cursor: pointer; color: #0dcaf0;" onclick="document.getElementById('form-removeWishlist').submit();"></i>
+                                                <i class="fa fa-heart" style="cursor: pointer; color: #0dcaf0;"
+                                                    onclick="document.getElementById('form-removeWishlist').submit();"></i>
                                             </form>
                                         @else
-                                            <form action="{{ route('wishlist.add') }}" method="post"
-                                                class="cart wishlist-form">
+                                            <form action="{{ route('wishlist.add') }}" method="post" class="cart "
+                                                id="wishlist-form">
                                                 @csrf
                                                 <input type="hidden" name="id" value="{{ $product->id }}" />
                                                 <input type="hidden" name="name" value="{{ $product->name }}" />
@@ -141,19 +140,29 @@
                                                         title="Qty" value="1" name="qty" min="1"
                                                         step="1" />
                                                 </div>
-                                                <i class="addWishlist fa fa-heart text-white"
-                                                    style="cursor: pointer; "></i>
+                                                <i class=" fa fa-heart text-white" style="cursor: pointer; "
+                                                    onclick="document.getElementById('wishlist-form').submit();"></i>
                                             </form>
                                         @endif
 
                                     </h2>
-
-                                    <div class="product-carousel-price">
-                                        <ins>{{ number_format(salePrice($product->price, $product->discount), 2) }}</ins>
-                                        <del>{{ number_format($product->price, 2) }}</del>
-                                    </div>
+                                    @if ($product->discount)
+                                        <div class="product-carousel-price">
+                                            <ins>{{ number_format(salePrice($product->price, $product->discount)) }}đ</ins>
+                                            <del>{{ number_format($product->price) }}đ</del>
+                                        </div>
+                                        @else
+                                         <div class="product-carousel-price">
+                                            <ins>{{ number_format(salePrice($product->price, $product->discount)) }}đ</ins>
+                                         </div>
+                                    @endif
+                                    
                                 </div>
-                            @endforeach
+                                @endforeach
+                            @else
+                                <div class="text-danger text-center">No data!</div>
+                            @endif
+                           
                         </div>
                     </div>
                 </div>

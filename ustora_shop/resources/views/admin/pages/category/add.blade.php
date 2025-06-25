@@ -17,21 +17,11 @@
                         <div class="form-group @error('name') has-error @enderror">
                             <label for="name">Tên danh mục</label>
                             <input type="text" class="form-control" name="name" id="name" placeholder="Nhập tên danh mục">
-                            
+
                               @error('name')
                                   <span class="text-danger">{{$message}}</span>
                               @enderror
                           </div>
-
-                          {{-- <div class="form-group">
-                            <label for="defaultSelect">Danh mục cha</label>
-                            <select name="parent_id" class="form-select form-control" id="defaultSelect">
-                              <option value="0">Chọn danh mục cha</option>
-                              @foreach ($categories as $item)
-                              <option value="{{ $item->id }}">{{$item->name}}</option>
-                              @endforeach
-                            </select>
-                          </div> --}}
 
                           <div class="form-group">
                             <label for="category">Chọn danh mục:</label>
@@ -88,8 +78,8 @@
                             <button type="submit" class="btn btn-success">Thêm</button>
                         </div>
                     </form>
-                    
-                    
+
+
                   </div>
               </div>
     </div>

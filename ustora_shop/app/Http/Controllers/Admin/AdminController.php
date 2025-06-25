@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AdminRequest;
+use App\Models\Order;
+use App\Models\OrderItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -15,7 +17,9 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('admin.pages.dashboard');
+        $orders = Order::where('status', '!=', 'delivered')->get();
+        $totalAmount = Order::sum('total');
+        return view('admin.pages.dashboard', compact('orders', 'totalAmount'));
         // return view('admin.pages.admin.index');
     }
     public function dashboard()

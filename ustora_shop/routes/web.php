@@ -4,6 +4,8 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\User\GoogleController;
+use App\Http\Controllers\User\FacebookController;
 use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\User\ShopController;
 use App\Http\Controllers\User\UserController;
@@ -17,6 +19,21 @@ Route::post('/login', [UserController::class, 'postLogin'])->name('login.post');
 Route::get('/register', [UserController::class, 'register'])->name('register');
 Route::post('/register', [UserController::class, 'postRegister']);
 Route::get('/logout', [UserController::class, 'logout'])->name('logout');
+
+//
+    Route::get('language/{lang}', function ($lang) {
+        session(['locale' => $lang]);
+        return redirect()->back();
+    })->name('language.switch')->middleware('lang');
+
+//login google
+Route::get('auth/google',[GoogleController::class, 'redirectToGoogle'])->name('google.redirect');
+Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);
+//end
+//login fb
+Route::get('auth/facebook',[FacebookController::class, 'redirectToFacebook'])->name('facebook.redirect');
+Route::get('auth/facebook/callback', [FacebookController::class, 'handleFacebookCallback']);
+//end
 
 Route::get('/shop', [ShopController::class, 'index'])->name('shop');
 Route::get('/productDetail/{id}', [ShopController::class, 'productDetail'])->name('productDetail');
@@ -38,10 +55,11 @@ Route::post('wishlist/moveToCart/{rowId}', [WishlistController::class, 'moveToCa
 
 Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout');
 Route::post('/place_an_order', [CartController::class, 'place_an_order'])->name('cart.place.an.order');
+Route::post('/vn_payment', [CartController::class, 'vn_payment'])->name('vnpay');
 Route::get('/order-confirmation', [CartController::class, 'order_confirmation'])->name('cart.order.confirmation');
 Route::get('/view-order', [OrderController::class, 'view_order'])->name('view.order');
 Route::get('/view-order/{id}/detail', [OrderController::class, 'show_order'])->name('show.order');
-Route::put('/cancel-order',[OrderController::class, 'order_cancel'])->name('cancel.order');
+Route::put('/cancel-order', [OrderController::class, 'order_cancel'])->name('cancel.order');
 
 
 
@@ -70,8 +88,6 @@ Route::middleware(['admin'])->prefix('admin')->group(function () {
     Route::get('/product-forceDelete/{id}', [ProductController::class, 'forceDelete'])->name(name: 'product.forceDelete');
 
     //order
-    Route::resource('/order',OrderController::class);
+    Route::resource('/order', OrderController::class);
     Route::put('/order/update-status', [OrderController::class, 'update'])->name('order.update.status');
-
-
 });
