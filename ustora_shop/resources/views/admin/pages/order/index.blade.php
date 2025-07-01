@@ -35,7 +35,6 @@
                         <th>#</th>
                         <th>Name</th>
                         <th>Phone</th>
-                        <th>Subtotal</th>
                         <th>Total</th>
                         <th>Status</th>
                         <th>Order Date</th>
@@ -50,7 +49,6 @@
                           <th>#</th>
                           <th>Name</th>
                           <th>Phone</th>
-                          <th>Subtotal</th>
                           <th>Total</th>
                           <th>Status</th>
                           <th>Order Date</th>
@@ -65,8 +63,7 @@
                         <td>{{$order->id}}</td>
                         <td>{{$order->name}}</td>
                         <td>{{$order->phone}}</td>
-                        <td>{{ $order->subtotal}}$</td>
-                        <td>{{$order->total}}$</td>
+                        <td>{{formatToVND( $order->total)}}đ</td>
                         <td>{{$order->status}}</td>
                         <td>{{$order->created_at}}</td>
                         <td>{{$order->orderItems->count()}}</td>

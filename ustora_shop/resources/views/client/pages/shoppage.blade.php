@@ -45,10 +45,10 @@
                                     @endif
 
                                 <div class="product-option-shop"
-                                    style="display:flex; gap:1px; justify-content: space-between; align-content: center;">
+                                    style="display:flex; gap:1px; justify-content: space-between; align-items: center;">
                                     <button class="add_to_cart_button" data-quantity="1" data-product_sku=""
                                         data-product_id="70" rel="nofollow" type="submit">Add to cart</button>
-                                    <a href="javascript:void(0);" class="add_to_cart_button" onclick="document.getElementById('form-wishlist').submit();">
+                                    <a href="javascript:void(0);" class="add_to_cart_button d-flex justify-center items-center" onclick="document.getElementById('form-wishlist').submit();">
                                          <i class="addWishlist fa fa-heart text-white text-center" style="cursor: pointer; font-size:20px; "></i>
                                     </a>
                                 </div>

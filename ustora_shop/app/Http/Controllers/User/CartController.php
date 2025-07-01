@@ -37,7 +37,7 @@ class CartController extends Controller
                 ]
             ]
         )->associate('App\Models\Product');
-        //                dd(\Cart::instance('cart')->content());
+
         toastr()->success('Thêm sản phẩm thành công!', ['timeOut' => 2000]);
         return redirect()->back();
     }
@@ -137,9 +137,10 @@ class CartController extends Controller
             $orderItem->save();
         }
 
-        if ($request->mode == 'cheque') {
-            //
-        } else if ($request->mode == 'paypal') {
+        // if ($request->mode == 'cheque') {
+        //     //
+        // } else 
+        if ($request->mode == 'paypal') {
             $transaction = new Transaction();
             $transaction->user_id = $user_id;
             $transaction->order_id = $order->id;
@@ -156,7 +157,7 @@ class CartController extends Controller
             // sang VNPAY
             $vnp_OrderInfo = "Thanh toan hoa don";
             $vnp_OrderType = "Ustora shop";
-            $vnp_Amount = \Session::get('checkout')['subtotal'] * 100;
+            $vnp_Amount = (float)\Session::get('checkout')['subtotal'] * 100;
             $vnp_Locale = 'VN';
             $vnp_BankCode = 'NCB';
             $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];
@@ -217,7 +218,9 @@ class CartController extends Controller
             }
             // vui lòng tham khảo thêm tại code demo
 
-        } else if ($request->mode == 'cod') {
+        }
+
+        if ($request->mode == 'cod') {
             $transaction = new Transaction();
             $transaction->user_id = $user_id;
             $transaction->order_id = $order->id;

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\AdminRequest;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -19,7 +20,8 @@ class AdminController extends Controller
     {
         $orders = Order::where('status', '!=', 'delivered')->get();
         $totalAmount = Order::sum('total');
-        return view('admin.pages.dashboard', compact('orders', 'totalAmount'));
+        $userSubscriber = User::where('role', '=', '0')->count();
+        return view('admin.pages.dashboard', compact('orders', 'totalAmount', 'userSubscriber'));
         // return view('admin.pages.admin.index');
     }
     public function dashboard()

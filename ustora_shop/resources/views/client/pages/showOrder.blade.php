@@ -92,15 +92,13 @@
                             </thead>
                             <tbody>
                             @foreach($order->orderItems as $item)
-{{--                                @php--}}
-{{--                                    dd($item->product->img)--}}
-{{--                                 @endphp--}}
+
                                 <tr>
                                     <td>
-                                        <img src="{{$item->product->img}}" width="100px">
+                                        <img src="{{asset('storage/images/'.$item->product->img)}}" width="100px">
                                         {{$item->product->name}}
                                     </td>
-                                    <td>{{$item->price}}</td>
+                                    <td>{{formatToVND($item->price)}}đ</td>
                                     <td>{{$item->quantity}}</td>
                                     <td>{{$item->product->category->name}}</td>
                                     <td>{{$item->rstatus == 0 ? 'No' : 'Yes'}}</td>
@@ -132,20 +130,20 @@
                             <tbody>
                             <tr>
                                 <th>Subtotal</th>
-                                <td>${{$order->subtotal}}</td>
+                                <td>{{formatToVND($order->subtotal)}}đ</td>
                             </tr>
                             <tr>
                                 <th>Total</th>
-                                <td>${{$order->total}}</td>
+                                <td>{{formatToVND($order->total)}}đ</td>
                                 <th>Payment mode</th>
                                 <td>${{$order->mode}}</td>
                                 <th>Status</th>
                                 <td>
-                                    @if($transaction->status == 'approved')
+                                    @if($order->transaction->status == 'approved')
                                         <span class="badge bg-success">Approved</span>
-                                    @elseif($transaction->status == 'declined')
+                                    @elseif($order->transaction->status == 'declined')
                                         <span class="badge bg-danger">Declined</span>
-                                    @elseif($transaction->status == 'refunded')
+                                    @elseif($order->transaction->status == 'refunded')
                                         <span class="badge bg-secondary">Refunded</span>
                                     @else
                                         <span class="badge bg-warning">pending</span>
@@ -183,7 +181,7 @@
                     </div>
                 </div>
             </div>
-            @if($order->status=='ordered')
+            @if($order->status !='delivered')
             <div>
                 <form action="{{route('cancel.order')}}" method="post">
                     @csrf

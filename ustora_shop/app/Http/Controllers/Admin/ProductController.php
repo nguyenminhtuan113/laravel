@@ -8,6 +8,7 @@ use App\Models\Categories;
 use App\Models\ImgProduct;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Storage;
 
 class ProductController extends Controller
 {
@@ -75,6 +76,7 @@ class ProductController extends Controller
         $categories = Categories::all();
         // Lấy thông tin sản phẩm cùng với quan hệ ảnh (imgProduct)
         $product->load('imgProduct');
+
         return view('admin.pages.product.edit', compact('product', 'categories'));
     }
 
@@ -83,12 +85,44 @@ class ProductController extends Controller
      */
     public function update(ProductRequest $request, Product $product)
     {
-        // dd($request->all());
         try {
+            if ($request->hasFile('photo')) {
+                $fileName = $request->photo->getClientOriginalName();
+                $request->photo->storeAs('public/images/', $fileName);
+                $request->merge(['img' => $fileName]);
+            }
+            //xoá ảnh nếu yêu cầu
+            if ($request->has('delete_photo') && $product->img) {
+                Storage::delete('public/images/' . $product->img);
+            }
             $product->update($request->all());
+
+            //xoa anh cu
+
+            if ($request->has('delete_photos')) {
+                foreach ($request->delete_photos as $imgId) {
+                    $img = ImgProduct::find($imgId);
+                    if ($img) {
+                        Storage::delete('public/images/' . $img->img);
+                        $img->delete();
+                    }
+                }
+            }
+
+            if ($request->hasFile('photos')) {
+                foreach ($request->photos as $photo) {
+                    $fileName = $photo->getClientOriginalName();
+                    $photo->storeAs('public/images/', $fileName);
+                    ImgProduct::create([
+                        'product_id' => $product->id,
+                        'img' => $fileName,
+                    ]);
+                }
+            }
             toastr()->success('Cập nhật thành công!');
             return redirect()->route('product.index');
         } catch (\Throwable $th) {
+            //throw $th;
             toastr()->error('Cập nhật thất bại!', ['timeOut' => 1000]);
             return $th->getMessage();
         }

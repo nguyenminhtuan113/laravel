@@ -40,6 +40,7 @@
                                         <ins>{{ number_format(salePrice($product->price, $product->discount)) }}đ</ins>
                                         </div>
                                 @endif
+                                
                             </div>
                         @endforeach
 
@@ -139,7 +140,7 @@
                                     <tr>
                                         <td class="action" colspan="6" >
                                             <h3>
-                                                <b>Total payment: {{\Cart::instance('cart')->subtotal()}} đ</b>
+                                                <b>Total payment: {{ formatToVND(\Cart::instance('cart')->subtotal())}} đ</b>
                                             </h3>
                                             <div style="display: flex; justify-content: end; gap: 1px;">
                                                 <a href="{{route('checkout')}}"   class="btn btn-primary" style="display:flex; justify-content:center ; align-items: center ;">Checkout</a>
@@ -164,13 +165,26 @@
                                     <ul class="products">
                                         @foreach($interestProduct as $interPro)
                                             <li class="product">
-                                                <a href="{{route('productDetail',$interPro->id)}}">
-                                                    <img width="325" height="325" alt="T_4_front" class="attachment-shop_catalog wp-post-image" src="{{'storage/images/'.$interPro->img}}">
-                                                    <h3>{{$interPro->name}}</h3>
-                                                    <span class="price"><span class="amount"> {{number_format(salePrice($interPro->price,$interPro->discount))}}</span></span>
-                                                </a>
+                                                <form action="{{route('cart.add') }}" method="POST">
+                                                     
+                                                    <a href="{{route('productDetail',$interPro->id)}}">
+                                                        <img width="325" height="325" alt="T_4_front" class="attachment-shop_catalog wp-post-image" src="{{'storage/images/'.$interPro->img}}">
+                                                        <h3>{{$interPro->name}}</h3>
+                                                        <span class="price"><span class="amount"> {{number_format(salePrice($interPro->price,$interPro->discount))}}</span></span>
+                                                    </a>
+                                                    @csrf
+                                                    <div class="form-group">
+                                                        <input type="hidden" name="id" value="{{ $product->id }}" />
+                                                        <input type="hidden" name="name" value="{{ $product->name }}" />
+                                                        <input type="hidden" name="price"
+                                                            value="{{ salePrice($product->price, $product->discount) }}" />
+                                                        <input type="hidden" name="img" value="{{ $product->img }}" />
+                                                        <input type="hidden" name="qty" min="1" value="1" />
+                                                    </div>
+                                                    <button type="submit" class="add_to_cart_button">Add to cart</button>
+                                                </form>
+                                                
 
-                                                <a class="add_to_cart_button" data-quantity="1" data-product_sku="" data-product_id="22" rel="nofollow" href="{{route('productDetail',$interPro->id)}}">Detail</a>
                                             </li>
 
                                         @endforeach
@@ -187,7 +201,7 @@
                                         <tbody>
                                         <tr class="cart-subtotal">
                                             <th>Cart Subtotal</th>
-                                            <td><span class="amount">{{\Cart::instance('cart')->subtotal()}} đ</span></td>
+                                            <td><span class="amount">{{formatToVND(\Cart::instance('cart')->subtotal())}} đ</span></td>
                                         </tr>
 
                                         <tr class="shipping">
@@ -197,7 +211,7 @@
 
                                         <tr class="order-total">
                                             <th>Order Total</th>
-                                            <td><strong><span class="amount">{{\Cart::instance('cart')->total()}} đ</span></strong> </td>
+                                            <td><strong><span class="amount">{{formatToVND(\Cart::instance('cart')->subtotal())}} đ</span></strong> </td>
                                         </tr>
                                         </tbody>
                                     </table>

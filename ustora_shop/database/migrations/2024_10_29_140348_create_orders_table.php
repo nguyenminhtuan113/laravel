@@ -15,7 +15,7 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('user_id')->unsigned();
             $table->decimal('subtotal');
-//            $table->decimal('discount')->default(0);
+            //            $table->decimal('discount')->default(0);
             $table->decimal('total');
             $table->string('name');
             $table->string('phone');
@@ -26,7 +26,7 @@ return new class extends Migration
             $table->string('country');
             $table->string('landmark');
             $table->string('type')->default('home');
-            $table->enum('status',['ordered','delivered','canceled'])->default('ordered');
+            $table->enum('status', ['ordered', 'delivered', 'canceled'])->default('ordered');
             $table->boolean('is_shipping_different')->default(false);
             $table->date('delivered_date')->nullable();
             $table->date('canceled_date')->nullable();

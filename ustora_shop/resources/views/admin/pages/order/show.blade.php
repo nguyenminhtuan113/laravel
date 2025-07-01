@@ -81,10 +81,10 @@
                             @foreach($orderItems as $item)
                                 <tr>
                                     <td>
-                                        <img src="{{$item->product->img}}" width="50px">
+                                        <img src="{{asset('storage/images/'.$item->product->img)}}" width="50px">
                                         {{$item->product->name}}
                                     </td>
-                                    <td>{{$item->price}}</td>
+                                    <td>{{formatToVND($item->price)}}đ</td>
                                     <td>{{$item->quantity}}</td>
                                     <td>{{$item->product->category->name}}</td>
                                     <td>{{$item->rstatus == 0 ? 'No' : 'Yes'}}</td>
@@ -141,13 +141,13 @@
                             <tbody>
                             <tr>
                                 <th>Subtotal</th>
-                                <td>${{$order->subtotal}}</td>
+                                <td>{{formatToVND($order->subtotal)}}đ</td>
                             </tr>
                             <tr>
                                 <th>Total</th>
-                                <td>${{$order->total}}</td>
+                                <td>{{formatToVND($order->total)}}đ</td>
                                 <th>Payment mode</th>
-                                <td>{{$order->transaction->mode}}</td>
+                                <td>{{$order->transaction?->mode}}</td>
                                 <th>Status</th>
                                 <td>
                                     @if($transaction->status == 'approved')

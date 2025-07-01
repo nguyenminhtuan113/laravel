@@ -20,18 +20,12 @@ Route::get('/register', [UserController::class, 'register'])->name('register');
 Route::post('/register', [UserController::class, 'postRegister']);
 Route::get('/logout', [UserController::class, 'logout'])->name('logout');
 
-//
-    Route::get('language/{lang}', function ($lang) {
-        session(['locale' => $lang]);
-        return redirect()->back();
-    })->name('language.switch')->middleware('lang');
-
 //login google
-Route::get('auth/google',[GoogleController::class, 'redirectToGoogle'])->name('google.redirect');
+Route::get('auth/google', [GoogleController::class, 'redirectToGoogle'])->name('google.redirect');
 Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);
 //end
 //login fb
-Route::get('auth/facebook',[FacebookController::class, 'redirectToFacebook'])->name('facebook.redirect');
+Route::get('auth/facebook', [FacebookController::class, 'redirectToFacebook'])->name('facebook.redirect');
 Route::get('auth/facebook/callback', [FacebookController::class, 'handleFacebookCallback']);
 //end
 

@@ -232,7 +232,7 @@
                                             {{ $item->name }} <strong class="product-quantity">×
                                                 {{ $item->qty }}</strong> </td>
                                         <td class="product-total">
-                                            <span class="amount">£{{ $item->subtotal() }}</span>
+                                            <span class="amount">{{ formatToVND($item->subtotal()) }}đ</span>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -241,7 +241,7 @@
 
                                 <tr class="cart-subtotal">
                                     <th> Subtotal</th>
-                                    <td><span class="amount">{{ \Cart::instance('cart')->subtotal() }}đ</span>
+                                    <td><span class="amount">{{formatToVND(\Cart::instance('cart')->subtotal())}}đ</span>
                                     </td>
                                 </tr>
 
@@ -259,7 +259,7 @@
                                 <tr class="order-total">
                                     <th>Total</th>
                                     <td><strong><span
-                                                class="amount">{{ \Cart::instance('cart')->total() }}đ</span></strong>
+                                                class="amount">{{formatToVND(\Cart::instance('cart')->subtotal())}}đ</span></strong>
                                     </td>
                                 </tr>
 

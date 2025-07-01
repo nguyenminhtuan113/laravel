@@ -121,11 +121,7 @@
                     <span class="sub-item">Danh sách Order</span>
                   </a>
                 </li>
-                <li class="{{ Request::routeIs('order.create') ? 'active' : '' }}">
-                  <a href="{{route('order.create')}}">
-                    <span class="sub-item">Thêm sản phẩm</span>
-                  </a>
-                </li>
+                
               </ul>
             </div>
           </li>

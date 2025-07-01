@@ -26,12 +26,11 @@
                             <th scope="col">Order No</th>
                             <th scope="col">Name</th>
                             <th scope="col">Phone</th>
-                            <th scope="col">Subtotal</th>
                             <th scope="col">Total</th>
                             <th scope="col">Status</th>
-                            <th scope="col">Order Date</th>
                             <th scope="col">Items</th>
                             <th scope="col">Delivered On</th>
+                            <th scope="col">Order Date</th>
                             <th scope="col">Action</th>
 
                         </tr>
@@ -43,8 +42,7 @@
                                         <td>{{$order->id}}</td>
                                         <td>{{$order->name}}</td>
                                         <td>{{$order->phone}}</td>
-                                        <td>{{$order->subtotal}}</td>
-                                        <td>{{$order->total}}</td>
+                                        <td><b>{{formatToVND($order->total)}}đ</b></td>
                                         <td>
                                             @if($order->status == 'delivered')
                                                 <span class="badge bg-success" style="background: green">Delivered</span>
@@ -54,9 +52,9 @@
                                                 <span class="badge bg-warning" style="background: yellow;color: black">Ordered</span>
                                             @endif
                                         </td>
-                                        <td>{{$order->created_at}}</td>
                                         <td>{{$order->orderItems->count()}}</td>
                                         <td>{{$order->delivered_date}}</td>
+                                        <td>{{$order->created_at}}</td>
                                         <td>
                                             <a href="{{route('show.order',$order->id)}}" class="btn btn-primary"><i class="fa fa-eye"></i> Show</a>
                                         </td>

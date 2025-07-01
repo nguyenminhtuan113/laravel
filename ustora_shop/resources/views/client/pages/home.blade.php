@@ -114,7 +114,7 @@
                                         </div>
                                     </div>
 
-                                    <h2 style="display: flex; justify-content: space-between;">
+                                    <h2 >
                                         <a href="{{ route('productDetail', $product->id) }}">{{ $product->name }}</a>
                                         
                                         @if (\Cart::instance('wishlist')->content()->where('id', $product->id)->count() > 0)
@@ -352,4 +352,5 @@
             </div>
         </div>
     </div> <!-- End product widget area -->
+   
 @endsection

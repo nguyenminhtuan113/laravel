@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="product-bit-title text-center">
-                        <h2>Shop</h2>
+                        <h2>Product Details</h2>
                     </div>
                 </div>
             </div>
@@ -90,10 +90,18 @@
                             <div class="col-sm-6">
                                 <div class="product-inner">
                                     <h2 class="product-name">{{ $product->name }}</h2>
-                                    <div class="product-inner-price">
-                                        <ins>${{ number_format(salePrice($product->price, $product->discount), 2) }}</ins>
-                                        <del>${{ number_format($product->price, 2) }}</del>
+                                    @if ($product->discount)
+                                         <div class="product-inner-price">
+                                        <ins>{{ number_format(salePrice($product->price, $product->discount)) }}đ</ins>
+                                        <del>{{ number_format($product->price) }}đ</del>
                                     </div>
+                                        @else
+                                         <div class="product-inner-price">
+                                            <ins>{{ number_format($product->price) }}đ</ins>
+                                         </div>
+                                    @endif
+                                   
+
                                     <div class="d-flex"
                                         style="display: flex;justify-content: space-around; flex-wrap: wrap">
                                         <form action="{{ route('cart.add') }}" method="post" class="cart">
@@ -102,7 +110,7 @@
                                             <input type="hidden" name="name" value="{{ $product->name }}" />
                                             <input type="hidden" name="img" value="{{ $product->img }}" />
                                             <input type="hidden" name="price"
-                                                value="{{ number_format(salePrice($product->price, $product->discount), 2) }}" />
+                                                value="{{ salePrice($product->price, $product->discount)}}" />
                                             <div class="quantity">
                                                 <input type="number" size="4" class="input-text qty text"
                                                     title="Qty" value="1" name="qty" min="1"

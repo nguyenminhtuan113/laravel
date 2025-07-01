@@ -149,7 +149,7 @@
                 <div class="product-details">
                     <h5>{{$item->product->name}}</h5>
                     <p>Số lượng: {{$item->quantity}}</p>
-                    <p>Giá: {{$item->price}}$</p>
+                    <p>Giá: {{formatToVND($item->price)}}đ</p>
                 </div>
             </div>
             @endforeach
@@ -167,9 +167,9 @@
     <div class="section">
         @foreach($order->orderItems as $item)
         <h4>Chi Tiết Thanh Toán</h4>
-        <p><strong>Tổng tiền sản phẩm:</strong> {{$item->price}}$ </p>
+        <p><strong>Tổng tiền sản phẩm:</strong> {{formatToVND($order->subtotal)}}đ </p>
         <p><strong>Phí vận chuyển:</strong> Free ship</p>
-        <p class="summary"><strong>Tổng cộng:</strong> {{$item->price}}$</p>
+        <p class="summary"><strong>Tổng cộng:</strong> {{formatToVND($order->total)}}đ</p>
         @endforeach
             <a href="{{route('home')}}">Trở về</a>
     </div>

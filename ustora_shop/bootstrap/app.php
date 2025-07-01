@@ -16,15 +16,5 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->appendToGroup('admin', [
             AdminAuthenticate::class
         ]);
-
-        $middleware->appendToGroup('lang', [
-            LanguageMiddleware::class
-        ]);
-
-
-
     })
-    ->withExceptions(function (Exceptions $exceptions) {
-        //
-    })->create();
-
+    ->withExceptions(function (Exceptions $exceptions) {})->create();

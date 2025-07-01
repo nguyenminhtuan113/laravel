@@ -87,12 +87,17 @@
 
                         <div class="form-group">
                           <label for="img">Ảnh</label>
-                          <input type="file" name="photo"  id="img" class="form-control"/>
+                            <input type="file" name="photo"  id="img" class="form-control"/>
                         </div>
                         @if ($product->img)
                           <div class="form-group">
                             <p>Hình ảnh hiện tại</p>
-                            <img src="{{asset('storage/images')}}/{{$product->img}}" style="max-width: 200px;" alt="">
+                            <img src="{{asset('storage/images')}}/{{$product->img}}" style="max-width: 200px;" alt="{{$product->name}}">
+                            <label>
+                              Xoá
+                              <input type="checkbox" name="delete_photo" value="{{$product->id}}">
+                            </label>
+
                           </div>
                             
                         @endif
@@ -101,17 +106,27 @@
                           <label for="photos">Ảnh mô tả</label>
                           <input type="file" name="photos[]" id="photos" class="form-control" multiple/>
                           <p>Hình ảnh mô tả</p>
-                          <div>
-                            @foreach($product->imgProduct as $image)
-                                <img src="{{ asset('storage/images/' . $image->img) }}" alt="Product Image" style="max-width: 200px;">
-                            @endforeach
+                            <div class="d-flex justify-center gap-2 flex-wrap ">
+                          @foreach($product->imgProduct as $image)
+                              <div class="d-flex flex-column">
+                                <img src="{{ asset('storage/images/' . $image->img) }}" alt="{{$product->name}}" style="max-width: 200px;">
+                                <label>
+                                  Xoá 
+                                  <input type="checkbox" name="delete_photos[]" value="{{$image->id}}">
+                                </label>
+                              </div>
+                                
+                          @endforeach
+
+                            </div>
+                                
                         </div>
                         </div>
                       </div>
                     </div>
                       <div class="form-group">
                         <a href="{{route('product.index')}}" class="btn btn-dark">Trở lại</a>
-                        <button type="submit" class="btn btn-success">Thêm</button>
+                        <button type="submit" class="btn btn-success">Cập nhật</button>
                       </div>
                   </form>
                   
